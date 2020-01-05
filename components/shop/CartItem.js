@@ -1,17 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from "../../constants/colors";
+import PropTypes from 'prop-types';
 
 const CartItem = props => {
     return (
         <View style={S.cartItem}>
             <Text style={S.itemData}>
-                <Text style={S.qnty}>Quantity:</Text>
-                <Text style={S.text}>Title:</Text>
+                <Text style={S.qnty}>{props.quantity} </Text>
+                <Text style={S.text}>{props.title}</Text>
             </Text>
             <View style={S.itemData}>
-                <Text style={S.text}>$</Text>
+                <Text style={S.text}>{props.price}</Text>
                 <TouchableOpacity onPress={props.onRemove} style={S.deleteButton}>
                     <Ionicons
                         size={23}
@@ -20,6 +21,13 @@ const CartItem = props => {
             </View>
         </View>
     );
+};
+
+CartItem.propTypes = {
+    quantity: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    onRemove: PropTypes.func
 };
 
 const S = StyleSheet.create({

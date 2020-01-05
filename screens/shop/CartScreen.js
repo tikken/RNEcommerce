@@ -1,25 +1,51 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+import CartItem from '../../components/shop/CartItem';
+import colors from "../../constants/colors";
 
 const CartScreen = props => {
     const cartTotalAmount = useSelector(state => state.cart.totalAmount);
-    const cartItems = useSelector(state => state.cart.items);
-
-    console.log(cartItems);
+    const cartItems = useSelector(state => {
+        const transformedCartItems = [];
+        for (const key in state.cart.items) {
+            transformedCartItems.push({
+                productId: key,
+                productTitle: state.cart.items[key].productTitle,
+                productPrice: state.cart.items[key].productPrice,
+                quantity: state.cart.items[key].quantity,
+                sum: state.cart.items[key].sum
+            });
+        }
+        return transformedCartItems;
+    });
 
     return (
         <View style={S.screen}>
             <View style={S.summary}>
-                <Text style={S.summaryText}>Total: <Text style={S.totalAmount}>${cartTotalAmount.toFixed(2)}</Text></Text>
-                <Button title="Order now" disabled={cartTotalAmount === 0}/>
+                <Text style={S.summaryText}>
+                    Total:{' '}
+                    <Text style={S.amount}>${cartTotalAmount.toFixed(2)}</Text>
+                </Text>
+                <Button
+                    color={colors.black}
+                    title="Order Now"
+                    disabled={cartItems.length === 0}
+                />
             </View>
-           <View>
-               <Text>Cart items:</Text>
-           </View>
-
-            <FlatList data={cartItems} keyExtractor={item => item.productId} />
-
+            <FlatList
+                data={cartItems}
+                keyExtractor={item => item.productId}
+                renderItem={itemData => (
+                    <CartItem
+                        price={itemData.item.productPrice}
+                        quantity={itemData.item.quantity}
+                        title={itemData.item.productTitle}
+                        amount={itemData.item.sum}
+                        onRemove={() => {}}
+                    />
+                )}
+            />
         </View>
     );
 };
@@ -30,7 +56,6 @@ CartScreen.navigationOptions = navData => {
         headerTintColor: 'black'
     }
 };
-
 
 const S = StyleSheet.create({
     screen: {
