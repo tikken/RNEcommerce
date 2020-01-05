@@ -55,7 +55,8 @@ const ProductItem = props => {
 const S = StyleSheet.create({
     imageWrapper: {
         height: '100%',
-        overflow:'hidden'
+        overflow:'hidden',
+        alignItems: 'center'
     },
     info: {
         position: 'absolute',
@@ -67,7 +68,7 @@ const S = StyleSheet.create({
     },
     product: {
         backgroundColor: 'white',
-        height: 300,
+        height: 250,
         width: width - 40,
         margin: 20,
         marginBottom: 5,
@@ -95,7 +96,9 @@ const S = StyleSheet.create({
     },
     image: {
         height: '65%',
-        width: '100%'
+        width: '50%',
+        position: 'absolute',
+        top: -10
     }
 });
 
