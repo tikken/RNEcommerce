@@ -1,9 +1,11 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { FlatList, Text, StyleSheet, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import colors from "../../constants/colors";
 import * as cartActions from '../../store/actions/cart';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../../components/ui/HeaderButton';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
@@ -36,9 +38,21 @@ const S = StyleSheet.create({
     }
 });
 
-ProductsOverviewScreen.navigationOptions = {
-    headerTitle: 'LOUIS VUITTON',
-    headerTintColor: 'black'
+ProductsOverviewScreen.navigationOptions = navData => {
+    return {
+        headerTitle: 'LOUIS VUITTON',
+        headerTintColor: 'black',
+        headerRight: () =>
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    color="black"
+                    onPress={() => {
+                        navData.navigation.navigate('Cart');
+                    }}
+                    iconName={'ios-cart'}
+                    title="Cart"/>
+            </HeaderButtons>
+    }
 };
 
 export default ProductsOverviewScreen;

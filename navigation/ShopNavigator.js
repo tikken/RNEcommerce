@@ -7,12 +7,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
+import CartScreen from '../screens/shop/CartScreen';
 
 //router
 const ProductsNavigator = createStackNavigator({
     //routes          //screens
     ProductsOverview: ProductsOverviewScreen,
-    ProductDetail: ProductDetailScreen
+    ProductDetail: ProductDetailScreen,
+    Cart: CartScreen
 }, {
     defaultNavigationOptions: {
         headerStyle: {
