@@ -1,12 +1,13 @@
 import React from 'react';
 import { FlatList, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import colors from "../../constants/colors";
+import * as cartActions from '../../store/actions/cart';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
-
+    const dispatch = useDispatch();
     return (
         <FlatList
             style={S.background}
@@ -20,7 +21,7 @@ const ProductsOverviewScreen = props => {
                             productId: itemData.item.id
                         });
                     }}
-                    onAddToCart={() => {console.log('add to cart')}}
+                    onAddToCart={() => {dispatch(cartActions.addToCart(itemData.item))}}
                     image={itemData.item.imageUrl}
                     title={itemData.item.title}
                     price={itemData.item.price} />

@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
 
             let updatedOrNewCartItem;
 
-            if(items[addedProduct.id]) {
+            if(state.items[addedProduct.id]) {
                 //already have item in the cart
                 const updatedOrNewCartItem = new CartItem(
                         state.items[addedProduct.id].quantity + 1,
