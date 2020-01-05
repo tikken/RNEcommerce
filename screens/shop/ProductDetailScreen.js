@@ -52,12 +52,14 @@ const S = StyleSheet.create({
         fontSize: 20,
         color: colors.black,
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: 'louis'
     },
     descr: {
         fontSize: 14,
         marginHorizontal: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'louis'
     }
 });
 

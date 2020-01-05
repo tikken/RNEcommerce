@@ -76,11 +76,13 @@ const S = StyleSheet.create({
     title: {
         fontSize: 18,
         marginTop: 10,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'louis'
     },
     price: {
         fontSize: 14,
-        color: colors.black
+        color: colors.black,
+        fontFamily: 'louis'
     },
     actions: {
         flexDirection: 'row',
@@ -88,6 +90,7 @@ const S = StyleSheet.create({
         alignItems: 'flex-end',
         position: 'absolute',
         bottom: 0,
+        fontFamily: 'louis',
         left: 10
     },
     image: {
