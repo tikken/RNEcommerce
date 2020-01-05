@@ -3,7 +3,10 @@ import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const CartScreen = props => {
-    const cartTotalAmount = useSelector(state => state.cart.totalAmout);
+    const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+    const cartItems = useSelector(state => state.cart.items);
+
+    console.log(cartItems);
 
     return (
         <View style={S.screen}>
@@ -14,10 +17,12 @@ const CartScreen = props => {
            <View>
                <Text>Cart items:</Text>
            </View>
+
+            <FlatList data={cartItems} keyExtractor={item => item.productId} />
+
         </View>
     );
 };
-
 
 CartScreen.navigationOptions = navData => {
     return {
