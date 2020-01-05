@@ -1,29 +1,52 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, Button } from 'react-native';
+import {
+    View,
+    Text,
+    Platform,
+    Image,
+    StyleSheet,
+    Dimensions,
+    Button,
+    TouchableNativeFeedback,
+    TouchableOpacity
+} from 'react-native';
 import PropTypes from 'prop-types';
 import colors from "../../constants/colors";
 
 const { width } = Dimensions.get('window');
 
 const ProductItem = props => {
+    let TouchableCmp = TouchableOpacity;
+
+    if(Platform === 'android' && Platform.Version >= 21) {
+        TouchableCmp = TouchableNativeFeedback;
+    }
+
     return (
-        <View style={S.product}>
-            <View style={S.imageWrapper}>
-                <Image source={{ uri: props.image }} style={S.image} />
-            </View>
-            <View style={S.info}>
-                <Text style={S.title}>{props.title}</Text>
-                <Text style={S.price}>${props.price.toFixed(2)}</Text>
-            </View>
-            <View style={S.actions}>
-                <Button
-                    color={colors.primary}
-                    title="Details"
-                    onPress={props.onViewDetail} />
-                <Button
-                    color={colors.primary}
-                    title="Add to cart"
-                    onPress={props.onAddToCart} />
+        //переходит в экран подробностей после нажатия на любое место по карточке
+        <View style={S.touchable}>
+            <View style={S.product}>
+                <TouchableCmp onPress={props.onViewDetail} useForeground>
+                    <View>
+                        <View style={S.imageWrapper}>
+                            <Image source={{ uri: props.image }} style={S.image} />
+                        </View>
+                        <View style={S.info}>
+                            <Text style={S.title}>{props.title}</Text>
+                            <Text style={S.price}>${props.price.toFixed(2)}</Text>
+                        </View>
+                        <View style={S.actions}>
+                            <Button
+                                color={colors.primary}
+                                title="Details"
+                                onPress={props.onViewDetail} />
+                            <Button
+                                color={colors.primary}
+                                title="Add to cart"
+                                onPress={props.onAddToCart} />
+                        </View>
+                    </View>
+                </TouchableCmp>
             </View>
         </View>
     );
@@ -39,6 +62,10 @@ const S = StyleSheet.create({
         position: 'absolute',
         bottom: 50,
         left: 20
+    },
+    touchable: {
+        overflow: 'hidden',
+        borderRadius: 10
     },
     product: {
         shadowColor: 'black',
