@@ -1,13 +1,15 @@
 import React from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
+import colors from "../../constants/colors";
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
 
     return (
         <FlatList
+            style={S.background}
             data={products}
             keyExtractor={item => item.id}
             renderItem={itemData =>
@@ -27,8 +29,15 @@ const ProductsOverviewScreen = props => {
     );
 };
 
+const S = StyleSheet.create({
+    background: {
+        backgroundColor: colors.gray
+    }
+});
+
 ProductsOverviewScreen.navigationOptions = {
-    headerTitle: 'All products'
+    headerTitle: 'LOUIS VUITTON',
+    headerTintColor: 'black'
 };
 
 export default ProductsOverviewScreen;

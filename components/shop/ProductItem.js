@@ -37,11 +37,11 @@ const ProductItem = props => {
                         </View>
                         <View style={S.actions}>
                             <Button
-                                color={colors.primary}
+                                color={colors.black}
                                 title="Details"
                                 onPress={props.onViewDetail} />
                             <Button
-                                color={colors.primary}
+                                color={colors.black}
                                 title="Add to cart"
                                 onPress={props.onAddToCart} />
                         </View>
@@ -55,46 +55,39 @@ const ProductItem = props => {
 const S = StyleSheet.create({
     imageWrapper: {
         height: '100%',
-        borderRadius:10,
         overflow:'hidden'
     },
     info: {
         position: 'absolute',
-        bottom: 50,
+        bottom: 40,
         left: 20
     },
     touchable: {
-        overflow: 'hidden',
-        borderRadius: 10
+        overflow: 'hidden'
     },
     product: {
-        shadowColor: 'black',
-        shadowOpacity: .6,
-        shadowOffset: {width:0, height: 2},
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 10,
         backgroundColor: 'white',
         height: 300,
         width: width - 40,
         margin: 20,
         marginBottom: 5,
-        padding: 10
+        paddingBottom: 10
     },
     title: {
         fontSize: 18,
-        marginVertical: 4
+        marginTop: 10,
+        marginBottom: 10
     },
     price: {
         fontSize: 14,
-        color: colors.gray
+        color: colors.black
     },
     actions: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
         position: 'absolute',
-        bottom: 10,
+        bottom: 0,
         left: 10
     },
     image: {
@@ -104,7 +97,7 @@ const S = StyleSheet.create({
 });
 
 ProductItem.propTypes = {
-    image: PropTypes.string,
+    image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     onViewDetail: PropTypes.func,
