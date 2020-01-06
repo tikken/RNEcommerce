@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../../components/shop/CartItem';
 import colors from "../../constants/colors";
@@ -69,7 +69,8 @@ CartScreen.navigationOptions = navData => {
 
 const S = StyleSheet.create({
     screen: {
-        margin: 20
+        backgroundColor: colors.gray,
+        height: '100%'
     },
     summary: {
         flexDirection: 'row',
