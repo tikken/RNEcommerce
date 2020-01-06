@@ -11,6 +11,7 @@ import cartReducer from './store/reducers/cart';
 import ordersReducer from "./store/reducers/orders";
 //routes
 import ShopNavigator from './navigation/ShopNavigator';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 //assets
 async function fetchFonts() {
@@ -25,7 +26,7 @@ const rootReducer = combineReducers({
     orders: ordersReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default function App() {
     const [fontLoaded, setFontLoaded] = useState(false);
