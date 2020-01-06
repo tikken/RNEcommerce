@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import colors from "../../constants/colors";
 import * as cartActions from '../../store/actions/cart';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../../components/ui/HeaderButton';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
@@ -18,7 +16,7 @@ const ProductsOverviewScreen = props => {
             renderItem={itemData =>
                 <ProductItem
                     onViewDetail={() => {
-                        props.navigation.navigate('ProductDetail', {
+                        props.navigation.navigate('ProductDetails', {
                             productTitle: itemData.item.title,
                             productId: itemData.item.id
                         });
@@ -37,22 +35,5 @@ const S = StyleSheet.create({
         backgroundColor: colors.gray
     }
 });
-
-ProductsOverviewScreen.navigationOptions = navData => {
-    return {
-        headerTitle: 'LOUIS VUITTON',
-        headerTintColor: 'black',
-        headerRight: () =>
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-                <Item
-                    color="black"
-                    onPress={() => {
-                        navData.navigation.navigate('Cart');
-                    }}
-                    iconName={'ios-cart'}
-                    title="Cart"/>
-            </HeaderButtons>
-    }
-};
 
 export default ProductsOverviewScreen;
