@@ -5,11 +5,14 @@ import {
     Button,
     View,
     StyleSheet,
-    ScrollView } from 'react-native';
+    ScrollView, Platform
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import colors from "../../constants/colors";
 import * as cartActions from '../../store/actions/cart';
+import HeaderButton from "../../components/ui/HeaderButton";
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 const ProductDetailScreen = ({navigation}) => {
     const productId = navigation.getParam('productId');
@@ -37,7 +40,17 @@ const ProductDetailScreen = ({navigation}) => {
 ProductDetailScreen.navigationOptions = navData => {
     return {
         headerTitle: navData.navigation.getParam('productTitle'),
-        headerTintColor: colors.black
+        headerTintColor: colors.black,
+        headerRight: () =>
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                    color="black"
+                    onPress={() => {
+                        navData.navigation.navigate('Cart');
+                    }}
+                    iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+                    title="Cart"/>
+            </HeaderButtons>
     };
 };
 
