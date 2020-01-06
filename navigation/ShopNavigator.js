@@ -12,14 +12,45 @@ import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 import HeaderButton from "../components/ui/HeaderButton";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
+import {Ionicons} from '@expo/vector-icons';
 
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator({
-    Products: ProductsOverviewScreen,
-    Orders: OrdersScreen,
-    Cart: CartScreen
+    Products: {
+        screen: ProductsOverviewScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Products',
+            drawerIcon: drawerConfig =>
+                <Ionicons
+                    color={drawerConfig.tintColor}
+                    size={23}
+                    name={Platform.OS === 'android' ? 'md-albums' : 'ios-albums'} />
+        })
+    },
+    Orders: {
+        screen: OrdersScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Orders',
+            drawerIcon: drawerConfig =>
+                <Ionicons
+                    color={drawerConfig.tintColor}
+                    size={23}
+                    name={Platform.OS === 'android' ? 'md-list' : 'ios-list'} />
+        })
+    },
+    Cart: {
+        screen: CartScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Cart',
+            drawerIcon: drawerConfig =>
+                <Ionicons
+                color={drawerConfig.tintColor}
+                size={23}
+                name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} />
+        })
+    }
 }, {
-    // drawerType: 'slide',
+    drawerType: 'slide',
     drawerBackgroundColor: 'white',
     // overlayColor: colors.gray,
     contentOptions: {
