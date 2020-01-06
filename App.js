@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { Provider } from 'react-redux';
+import * as Font from 'expo-font';
+//redux
 import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+//reducers
 import productReducer from './store/reducers/products';
-import ShopNavigator from './navigation/ShopNavigator';
 import cartReducer from './store/reducers/cart';
+import ordersReducer from "./store/reducers/orders";
+//routes
+import ShopNavigator from './navigation/ShopNavigator';
 
 //assets
 async function fetchFonts() {
@@ -14,10 +18,11 @@ async function fetchFonts() {
         'louis': require('./assets/fonts/louis.ttf')
     });
 };
-//redux
+//redux settings
 const rootReducer = combineReducers({
     products: productReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    orders: ordersReducer
 });
 
 const store = createStore(rootReducer);

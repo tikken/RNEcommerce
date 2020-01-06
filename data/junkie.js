@@ -36,7 +36,7 @@ const PRODUCTS = [
     new Product(
         'p5',
         'u3',
-        'Сумка TWIST MM И КОШЕЛЕК TWISTY',
+        'Сумка TWIST MM',
         'https://ru.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton--M55683_PM2_Front%20view.jpg?wid=640&hei=640',
         'Awesome hardware, crappy keyboard and a hefty price. Buy now before a new one is released!',
         2299.99
