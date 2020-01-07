@@ -6,7 +6,6 @@ import {
     Image,
     StyleSheet,
     Dimensions,
-    Button,
     TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native';
@@ -26,7 +25,7 @@ const ProductItem = props => {
         //переходит в экран подробностей после нажатия на любое место по карточке
         <View style={S.touchable}>
             <View style={S.product}>
-                <TouchableCmp onPress={props.onViewDetail} useForeground>
+                <TouchableCmp onPress={props.onSelect} useForeground>
                     <View>
                         <View style={S.imageWrapper}>
                             <Image source={{ uri: props.image }} style={S.image} />
@@ -36,14 +35,7 @@ const ProductItem = props => {
                             <Text style={S.price}>${props.price.toFixed(2)}</Text>
                         </View>
                         <View style={S.actions}>
-                            <Button
-                                color={colors.black}
-                                title="Details"
-                                onPress={props.onViewDetail} />
-                            <Button
-                                color={colors.black}
-                                title="Add to cart"
-                                onPress={props.onAddToCart} />
+                            {props.children}
                         </View>
                     </View>
                 </TouchableCmp>
