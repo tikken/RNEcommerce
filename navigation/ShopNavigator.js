@@ -47,9 +47,9 @@ const ShopNavigator = createDrawerNavigator({
             title: 'Cart',
             drawerIcon: drawerConfig =>
                 <Ionicons
-                color={drawerConfig.tintColor}
-                size={23}
-                name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} />
+                    color={drawerConfig.tintColor}
+                    size={23}
+                    name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} />
         })
     },
     EditProduct: {
@@ -89,11 +89,6 @@ const ShopNavigator = createDrawerNavigator({
     }
 });
 
-const stackContainer = createStackNavigator({
-    defaultHome: ShopNavigator,
-    ProductDetails: ProductDetailScreen
-});
-
 ShopNavigator.navigationOptions = navData => {
     return {
         headerTitle: 'LOUIS VUITTON',
@@ -123,5 +118,10 @@ ShopNavigator.navigationOptions = navData => {
             </HeaderButtons>
     }
 };
+
+const stackContainer = createStackNavigator({
+    defaultHome: ShopNavigator,
+    ProductDetails: ProductDetailScreen
+});
 
 export default createAppContainer(stackContainer);
