@@ -1,21 +1,25 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TextInput, ScrollView, Button} from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {updateProduct} from "../../store/actions/products";
+import {createProduct} from "../../store/actions/products";
 
 const EditProductScreen = props => {
-    const pid = props.navigation.getParam('productId');
+    let pid = props.navigation.getParam('productId');
     const selected = useSelector(state => state.products.userProducts.find(prod => prod.id === pid));
 
     const [title, setTitle] = useState(selected ? selected.title : '');
     const [imageUrl, setImageUrl] = useState(selected ? selected.imageUrl : '');
     const [price, setPrice] = useState(selected ? `${selected.price}` : '');
     const [description, setDescription] = useState(selected ? selected.descr : '');
+    const dispatch = useDispatch();
+
     // console.log(selected);
     return (
         <ScrollView>
             <View style={S.form}>
                 <View>
-                    <Text style={S.text}>{pid ? 'Edit product': 'Add product'}</Text>
+                    <Text style={S.text}>{selected ? 'Edit product': 'Add product'}</Text>
                 </View>
                 <View style={S.formControl}>
                     <Text style={S.label}>Title:</Text>
@@ -47,7 +51,15 @@ const EditProductScreen = props => {
                 </View>
                 <View style={S.formControl}>
                     <View style={S.button} >
-                        <Button title={"Save"}/>
+                        <Button
+                            onPress={() => {
+                                if(selected) {
+                                    dispatch(updateProduct(pid, title, description, imageUrl, +price))
+                                } else {
+                                    dispatch(createProduct(title, description, imageUrl, +price))
+                                }
+                            }}
+                            title={"Save"}/>
                     </View>
                 </View>
             </View>
