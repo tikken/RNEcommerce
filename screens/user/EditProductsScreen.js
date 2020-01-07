@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, TextInput, ScrollView, Button} from 'react-native';
+import {StyleSheet, View, Text, TextInput, ScrollView, Button, Alert} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateProduct} from "../../store/actions/products";
 import {createProduct} from "../../store/actions/products";
@@ -15,6 +15,7 @@ const EditProductScreen = props => {
     const dispatch = useDispatch();
 
     // console.log(selected);
+
     return (
         <ScrollView>
             <View style={S.form}>
@@ -55,8 +56,10 @@ const EditProductScreen = props => {
                             onPress={() => {
                                 if(selected) {
                                     dispatch(updateProduct(pid, title, description, imageUrl, +price))
+                                    props.navigation.navigate('AdminProducts');
                                 } else {
                                     dispatch(createProduct(title, description, imageUrl, +price))
+                                    props.navigation.navigate('AdminProducts');
                                 }
                             }}
                             title={"Save"}/>

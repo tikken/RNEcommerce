@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, Button, Text, Platform, View } from 'react-native';
+import {StyleSheet, FlatList, Button, Text, Alert, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import { deleteProduct } from "../../store/actions/products";
@@ -36,7 +36,9 @@ const UserProductScreen = props => {
                        <Button
                            color={colors.black}
                            title="Delete"
-                           onPress={() => { dispatch(deleteProduct(itemData.item.id)) }} />
+                           onPress={() => {
+                               dispatch(deleteProduct(itemData.item.id))
+                           }} />
 
                    </ProductItem>
                }>
