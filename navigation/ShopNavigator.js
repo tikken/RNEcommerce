@@ -63,10 +63,10 @@ const ShopNavigator = createDrawerNavigator({
                     name={Platform.OS === 'android' ? 'md-create' : 'ios-create'} />
         })
     },
-    DeleteProduct: {
+    AdminProducts: {
         screen: UserProductsScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Delete product',
+            title: 'Admin products',
             drawerIcon: drawerConfig =>
                 <Ionicons
                     color={drawerConfig.tintColor}

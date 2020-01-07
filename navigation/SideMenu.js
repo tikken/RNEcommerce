@@ -49,11 +49,8 @@ class SideMenu extends Component {
                             Immortal
                         </Text>
                         <View style={styles.navSectionStyle}>
-                            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('EditProduct')}>
-                                EditProduct
-                            </Text>
-                            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('DeleteProduct')}>
-                                DeleteProduct
+                            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('AdminProducts')}>
+                                Admin products
                             </Text>
                         </View>
                     </View>
