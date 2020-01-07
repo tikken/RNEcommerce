@@ -2,9 +2,9 @@ import React from 'react';
 import { Platform } from 'react-native';
 import colors from "../constants/colors";
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationActions } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
@@ -13,8 +13,9 @@ import OrdersScreen from '../screens/shop/OrdersScreen';
 import HeaderButton from "../components/ui/HeaderButton";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
-
 import {Ionicons} from '@expo/vector-icons';
+import EditProductScreen from "../screens/user/EditProductsScreen";
+import SideMenu from "./SideMenu";
 
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator({
@@ -51,10 +52,21 @@ const ShopNavigator = createDrawerNavigator({
                 name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} />
         })
     },
-    Admin: {
+    EditProduct: {
+        screen: EditProductScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Edit product',
+            drawerIcon: drawerConfig =>
+                <Ionicons
+                    color={drawerConfig.tintColor}
+                    size={23}
+                    name={Platform.OS === 'android' ? 'md-create' : 'ios-create'} />
+        })
+    },
+    DeleteProduct: {
         screen: UserProductsScreen,
         navigationOptions: ({navigation}) => ({
-            title: 'Admin',
+            title: 'Delete product',
             drawerIcon: drawerConfig =>
                 <Ionicons
                     color={drawerConfig.tintColor}
@@ -66,6 +78,7 @@ const ShopNavigator = createDrawerNavigator({
     drawerType: 'slide',
     drawerBackgroundColor: 'white',
     // overlayColor: colors.gray,
+    contentComponent: SideMenu,
     contentOptions: {
         activeTintColor: colors.black,
         itemsContainerStyle: {
@@ -75,7 +88,6 @@ const ShopNavigator = createDrawerNavigator({
         }
     }
 });
-
 
 const stackContainer = createStackNavigator({
     defaultHome: ShopNavigator,
