@@ -64,7 +64,8 @@ const S = StyleSheet.create({
         left: 20
     },
     touchable: {
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: '100%'
     },
     product: {
         backgroundColor: 'white',

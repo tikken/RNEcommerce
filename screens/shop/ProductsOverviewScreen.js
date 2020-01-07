@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet, Platform } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import colors from "../../constants/colors";
@@ -9,6 +9,7 @@ const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
     const dispatch = useDispatch();
     return (
+        <View>
         <FlatList
             style={S.background}
             data={products}
@@ -27,6 +28,7 @@ const ProductsOverviewScreen = props => {
                     price={itemData.item.price} />
             }>
         </FlatList>
+        </View>
     );
 };
 

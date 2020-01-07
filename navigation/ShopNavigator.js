@@ -12,6 +12,8 @@ import CartScreen from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 import HeaderButton from "../components/ui/HeaderButton";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
+
 import {Ionicons} from '@expo/vector-icons';
 
 //обьединяет внутренние рауты и сайдбар
@@ -48,7 +50,18 @@ const ShopNavigator = createDrawerNavigator({
                 size={23}
                 name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} />
         })
-    }
+    },
+    Admin: {
+        screen: UserProductsScreen,
+        navigationOptions: ({navigation}) => ({
+            title: 'Admin',
+            drawerIcon: drawerConfig =>
+                <Ionicons
+                    color={drawerConfig.tintColor}
+                    size={23}
+                    name={Platform.OS === 'android' ? 'md-create' : 'ios-create'} />
+        })
+    },
 }, {
     drawerType: 'slide',
     drawerBackgroundColor: 'white',
@@ -63,6 +76,7 @@ const ShopNavigator = createDrawerNavigator({
     }
 });
 
+
 const stackContainer = createStackNavigator({
     defaultHome: ShopNavigator,
     ProductDetails: ProductDetailScreen
@@ -72,6 +86,8 @@ ShopNavigator.navigationOptions = navData => {
     return {
         headerTitle: 'LOUIS VUITTON',
         headerTintColor: 'black',
+        headerStyle: {
+        },
         headerLeft: () =>
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
                 <Item

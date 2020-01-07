@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 //redux
@@ -41,7 +41,8 @@ export default function App() {
 
     return (
        <Provider store={store}>
-          <ShopNavigator />
+           <StatusBar barStyle="dark-content" />
+           <ShopNavigator />
        </Provider>
   );
 }
