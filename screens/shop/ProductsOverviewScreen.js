@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View,Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import colors from "../../constants/colors";
 import * as cartActions from '../../store/actions/cart';
+import { fetchProducts } from '../../store/actions/products';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
     const dispatch = useDispatch();
+    //triggers when the component wil be rendered
+    useEffect(() => {
+        dispatch(fetchProducts());
+    }, [dispatch])
 
     const selectItemHandler = (id, title) => {
         props.navigation.navigate('ProductDetails', {
