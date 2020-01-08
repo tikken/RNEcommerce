@@ -11,6 +11,11 @@ export const fetchProducts = () => {
     const response = await fetch(
       "https://trattattoo.firebaseio.com/products.json"
     );
+
+    if (!response.ok) {
+      throw new Error("something went wrong with firebase");
+    }
+
     const respData = await response.json();
     const loadedProducts = [];
 
