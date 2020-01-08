@@ -3,8 +3,9 @@ import { StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 //redux
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 //reducers
 import productReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
     orders: ordersReducer
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools(), applyMiddleware(ReduxThunk));
 
 export default function App() {
     const [fontLoaded, setFontLoaded] = useState(false);
