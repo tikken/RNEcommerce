@@ -7,11 +7,33 @@ export const deleteProduct = productId => {
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
-  //thunk
-  return dispatch => {
+  //thunk will execute dispatch func after fetch func
+  return async dispatch => {
+    //any middleware logic goes here
+    const response = await fetch(
+      "https://trattattoo.firebaseio.com/products.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+          price
+        })
+      }
+    );
+
+    const respData = await response.json();
+
+    console.log(respData);
+
     dispatch({
       type: CREATE_PRODUCT,
       productData: {
+        id: respData.name,
         title: title,
         description: description,
         imageUrl: imageUrl,
