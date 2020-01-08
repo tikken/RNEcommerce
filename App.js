@@ -4,6 +4,9 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 //redux
 import { createStore, combineReducers, applyMiddleware } from "redux";
+//saga
+import createSagaMiddleware from 'redux-saga'
+
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 //reducers
