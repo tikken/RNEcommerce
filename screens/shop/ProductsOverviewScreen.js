@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -19,12 +19,32 @@ const ProductsOverviewScreen = props => {
   const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
   //triggers when the component wil be rendered
-  useEffect(() => {
+  const loadProducts = useCallback(async () => {
+    setError(null);
     setIsLoading(true);
-    dispatch(fetchProducts())
-      .then(setIsLoading(false), setError(null))
-      .catch(e => setError(e.message));
-  }, [dispatch, setError, setIsLoading]);
+    try {
+      await dispatch(fetchProducts());
+    } catch (err) {
+      setError(err.message);
+    }
+
+    setIsLoading(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [dispatch, loadProducts]);
+  //fires loadProducts func before details route will be reached
+  useEffect(() => {
+    const willFocusSub = props.navigation.addListener(
+      "willFocus",
+      loadProducts
+    );
+    //clean event subscription
+    return () => {
+      willFocusSub.remove();
+    };
+  }, [loadProducts]);
 
   const selectItemHandler = (id, title) => {
     props.navigation.navigate("ProductDetails", {
