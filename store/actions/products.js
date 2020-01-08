@@ -39,36 +39,30 @@ export const fetchProducts = () => {
 
 export const deleteProduct = id => {
   return async dispatch => {
-    await fetch(
-      `${FIREBASE_PATCH}/${id}.json`,
-      {
-        method: "DELETE"
-      }
-    );
+    await fetch(`${FIREBASE_PATCH}/${id}.json`, {
+      method: "DELETE"
+    });
 
-    dispatch({ type: DELETE_PRODUCT, pid: id })
-  }
+    dispatch({ type: DELETE_PRODUCT, pid: id });
+  };
 };
 
 export const createProduct = (title, description, imageUrl, price) => {
   //thunk will execute dispatch func after fetch func
   return async dispatch => {
     //any middleware logic goes here
-    const response = await fetch(
-      FIREBASE,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          imageUrl,
-          price
-        })
-      }
-    );
+    const response = await fetch(FIREBASE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+        price
+      })
+    });
     const respData = await response.json();
     // console.log(respData);
     dispatch({
@@ -86,32 +80,29 @@ export const createProduct = (title, description, imageUrl, price) => {
 
 export const updateProduct = (id, title, description, imageUrl, price) => {
   return async dispatch => {
-      //logic before execution
-      await fetch(
-        `${FIREBASE_PATCH}/${id}.json`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            title,
-            description,
-            imageUrl,
-            price
-          })
-        }
-      );
-      //will be executed
-      dispatch({
-        type: UPDATE_PRODUCT,
-        pid: id,
-        productData: {
-          title: title,
-          description: description,
-          imageUrl: imageUrl,
-          price: price
-        }
+    //logic before execution
+    await fetch(`${FIREBASE_PATCH}/${id}.json`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        imageUrl,
+        price
       })
-  }
+    });
+    //will be executed
+    dispatch({
+      type: UPDATE_PRODUCT,
+      pid: id,
+      productData: {
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price
+      }
+    });
+  };
 };
