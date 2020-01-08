@@ -13,7 +13,6 @@ import ordersReducer from "./store/reducers/orders";
 //routes
 import ShopNavigator from "./navigation/ShopNavigator";
 import { composeWithDevTools } from "redux-devtools-extension";
-
 //assets
 async function fetchFonts() {
   await Font.loadAsync({
@@ -26,13 +25,12 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   orders: ordersReducer
 });
-
 const store = createStore(
   rootReducer,
   composeWithDevTools(),
   applyMiddleware(ReduxThunk)
 );
-
+//main component
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
