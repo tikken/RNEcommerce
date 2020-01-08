@@ -80,6 +80,7 @@ const ProductsOverviewScreen = props => {
   return (
     <View>
       <FlatList
+        showsVerticalScrollIndicator={false}
         style={S.background}
         data={products}
         keyExtractor={item => item.id}

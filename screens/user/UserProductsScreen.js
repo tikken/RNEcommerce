@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, FlatList, Button, Text, Alert, View } from 'react-native';
+import {StyleSheet, FlatList, Button, Text, Alert, View, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../../components/shop/ProductItem';
 import { deleteProduct } from "../../store/actions/products";
@@ -10,7 +10,9 @@ const UserProductScreen = props => {
     const dispatch = useDispatch();
 
     return (
-        <View>
+        <View
+            style={S.view}
+            showsVerticalScrollIndicator={false}>
             <View style={S.wrapper}>
                 <Text
                     style={S.button}
@@ -48,6 +50,9 @@ const UserProductScreen = props => {
 };
 
 const S = StyleSheet.create({
+    view: {
+        height: '100%'
+    },
     wrapper: {
         width: '100%',
         justifyContent: 'center',
