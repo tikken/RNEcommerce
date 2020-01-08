@@ -2,21 +2,22 @@ import React from "react";
 import { Platform } from "react-native";
 import colors from "../constants/colors";
 
-import { createAppContainer, NavigationActions } from "react-navigation";
+import { createAppContainer, NavigationActions, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import CartScreen from "../screens/shop/CartScreen";
-import OrdersScreen from "../screens/shop/OrdersScreen";
 import HeaderButton from "../components/ui/HeaderButton";
-import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
-import UserProductsScreen from "../screens/user/UserProductsScreen";
 import { Ionicons } from "@expo/vector-icons";
-import EditProductScreen from "../screens/user/EditProductsScreen";
 import SideMenu from "./SideMenu";
-
+//screens
+import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
+import OrdersScreen from "../screens/shop/OrdersScreen";
+import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
+import EditProductScreen from "../screens/user/EditProductsScreen";
+import UserProductsScreen from "../screens/user/UserProductsScreen";
+import AuthScreen from "../screens/user/AuthScreen";
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator(
   {
@@ -134,9 +135,14 @@ ShopNavigator.navigationOptions = navData => {
   };
 };
 
-const stackContainer = createStackNavigator({
+const WholeShopNavigator = createStackNavigator({
   defaultHome: ShopNavigator,
   ProductDetails: ProductDetailScreen
 });
 
-export default createAppContainer(stackContainer);
+const MainNavigator = createSwitchNavigator({
+    Auth:AuthScreen,
+    Shop: WholeShopNavigator
+});
+
+export default createAppContainer(MainNavigator);
