@@ -15,24 +15,27 @@ import { fetchProducts } from "../../store/actions/products";
 
 const ProductsOverviewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
+
   const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
   //triggers when the component wil be rendered
   const loadProducts = useCallback(async () => {
     setError(null);
-    setIsLoading(true);
+    setIsRefreshing(true);
+
     try {
       await dispatch(fetchProducts());
     } catch (err) {
       setError(err.message);
     }
-
-    setIsLoading(false);
+    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(() => setIsLoading(false));
   }, [dispatch, loadProducts]);
   //fires loadProducts func before details route will be reached
   useEffect(() => {
@@ -80,6 +83,8 @@ const ProductsOverviewScreen = props => {
   return (
     <View>
       <FlatList
+        onRefresh={loadProducts}
+        refreshing={isRefreshing}
         showsVerticalScrollIndicator={false}
         style={S.background}
         data={products}
