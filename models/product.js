@@ -1,12 +1,12 @@
 class Product {
-    constructor(id, ownerId, title, imageUrl, descr, price) {
-        this.id = id;
-        this.ownerId = ownerId;
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.descr = descr;
-        this.price = price;
-    }
+  constructor(id, ownerId, title, imageUrl, descr, price) {
+    this.id = id;
+    this.ownerId = ownerId;
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.descr = descr;
+    this.price = price;
+  }
 }
 
 export default Product;
