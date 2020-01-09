@@ -9,9 +9,9 @@ const SignInScreen = props => {
 
   const submitHandler = (form, props) => {
       // console.warn(form);
-      dispatch(signin(form.login, form.pass));
+     dispatch(signin(form.login, form.pass));
       //validation
-      props.navigation.navigate('Shop');
+      // props.navigation.navigate('Shop');
   };
 
   return (

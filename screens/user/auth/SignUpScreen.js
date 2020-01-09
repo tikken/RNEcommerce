@@ -11,7 +11,7 @@ const SignUpScreen = props => {
       // console.warn(form);
       dispatch(signup(form.login, form.pass));
       //validation
-      props.navigation.navigate('Shop');
+      // props.navigation.navigate('Shop');
   };
 
   return (
