@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { signup } from "../../../store/actions/auth";
 
 const SignUpScreen = props => {
+  const [value, setValues] = useState({});
+  const dispatch = useDispatch();
+
+  const submitHandler = (form, props) => {
+      // console.warn(form);
+      dispatch(signup(form.login, form.pass));
+      //validation
+      props.navigation.navigate('Shop');
+  };
+
   return (
     <View style={S.centered}>
       <View style={S.form}>
         <View style={S.formControl}>
           <Text style={S.label}>Login:</Text>
           <TextInput
-            onChangeText={() => console.log("focused")}
+            onChangeText={(val) => setValues({...value, login: val})}
             autoCapitalize='none'
             style={S.input}
           />
@@ -16,8 +28,8 @@ const SignUpScreen = props => {
         <View style={S.formControl}>
           <Text style={S.label}>Pass:</Text>
           <TextInput
+            onChangeText={(val) => setValues({...value, pass: val})}
             secureTextEntry
-            onChangeText={() => console.log("focused2")}
             autoCapitalize='none'
             style={S.input}
           />
@@ -26,7 +38,9 @@ const SignUpScreen = props => {
           <View style={S.button}>
             <Button
               title='Sign up'
-              onPress={() => props.navigation.navigate("Shop")}
+              onPress={() => {
+                submitHandler(value, props)
+              }}
             />
           </View>
         </View>
