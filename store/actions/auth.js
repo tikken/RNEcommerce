@@ -25,7 +25,7 @@ export const signup = (email, password) => {
     }
 
     const resData = await response.json();
-    dispatch({ type: SIGNUP });
+    dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
   };
 };
 
@@ -53,6 +53,6 @@ export const signin = (email, password) => {
     }
 
     const resData = await response.json();
-    dispatch({ type: SIGNIN });
+    dispatch({ type: SIGNIN, token: resData.idToken, userId: resData.localId });
   };
 };
