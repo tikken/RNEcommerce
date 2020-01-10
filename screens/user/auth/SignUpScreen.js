@@ -1,26 +1,57 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  ActivityIndicator
+} from "react-native";
 import { signup } from "../../../store/actions/auth";
 
 const SignUpScreen = props => {
   const [value, setValues] = useState({});
+  const [error, setError] = useState();
+  const [loading, setIsLoading] = useState();
   const dispatch = useDispatch();
 
-  const submitHandler = (form, props) => {
-      // console.warn(form);
-      dispatch(signup(form.login, form.pass));
-      //validation
-      // props.navigation.navigate('Shop');
+  const submitHandler = async (form, props) => {
+    setIsLoading(true);
+    try {
+      setError(null);
+      await dispatch(signup(form.login, form.pass));
+    } catch (e) {
+      setError(e);
+      setIsLoading(false);
+      console.log(e);
+    }
   };
 
+
+  useEffect(
+    () => {
+      if (error) {
+        // Alert.alert("Wrong credits!");
+        Alert.alert(
+          'Caution!',
+          'Already exists!',
+          [
+            {text: 'Retry', onPress: () => setIsLoading(false)},
+          ]
+        );
+      }
+    },
+    [error]
+  );
   return (
     <View style={S.centered}>
       <View style={S.form}>
         <View style={S.formControl}>
           <Text style={S.label}>Login:</Text>
           <TextInput
-            onChangeText={(val) => setValues({...value, login: val})}
+            onChangeText={val => setValues({ ...value, login: val })}
             autoCapitalize='none'
             style={S.input}
           />
@@ -28,7 +59,7 @@ const SignUpScreen = props => {
         <View style={S.formControl}>
           <Text style={S.label}>Pass:</Text>
           <TextInput
-            onChangeText={(val) => setValues({...value, pass: val})}
+            onChangeText={val => setValues({ ...value, pass: val })}
             secureTextEntry
             autoCapitalize='none'
             style={S.input}
@@ -36,12 +67,16 @@ const SignUpScreen = props => {
         </View>
         <View style={S.formControl}>
           <View style={S.button}>
-            <Button
-              title='Sign up'
-              onPress={() => {
-                submitHandler(value, props)
-              }}
-            />
+            {loading ? (
+              <ActivityIndicator size='small' color='black' />
+            ) : (
+              <Button
+                title='Sign up'
+                onPress={() => {
+                  submitHandler(value, props);
+                }}
+              />
+            )}
           </View>
         </View>
       </View>

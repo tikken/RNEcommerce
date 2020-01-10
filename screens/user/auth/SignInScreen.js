@@ -1,18 +1,52 @@
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  ActivityIndicator,
+  Alert
+} from "react-native";
 import { signin } from "../../../store/actions/auth";
 
 const SignInScreen = props => {
   const [value, setValues] = useState({});
+  const [error, setError] = useState();
+  const [loading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const submitHandler = (form, props) => {
-      // console.warn(form);
-     dispatch(signin(form.login, form.pass));
-      //validation
-      // props.navigation.navigate('Shop');
+  const submitHandler = async (form, props) => {
+    setIsLoading(true);
+    try {
+      setError(null);
+      await dispatch(signin(form.login, form.pass));
+      setIsLoading(false);
+      if(!loading) {
+        props.navigation.navigate('Shop')
+      }
+    } catch (e) {
+      setError(e);
+      console.log(e);
+    }
   };
+
+  useEffect(
+    () => {
+      if (error) {
+        // Alert.alert("Wrong credits!");
+        Alert.alert(
+          'Caution!',
+          'Wrong credits',
+          [
+            {text: 'Retry', onPress: () => setIsLoading(false)},
+          ]
+        );
+      }
+    },
+    [error]
+  );
 
   return (
     <View style={S.centered}>
@@ -20,7 +54,7 @@ const SignInScreen = props => {
         <View style={S.formControl}>
           <Text style={S.label}>Login:</Text>
           <TextInput
-            onChangeText={(val) => setValues({...value, login: val})}
+            onChangeText={val => setValues({ ...value, login: val })}
             autoCapitalize='none'
             style={S.input}
           />
@@ -28,7 +62,7 @@ const SignInScreen = props => {
         <View style={S.formControl}>
           <Text style={S.label}>Pass:</Text>
           <TextInput
-            onChangeText={(val) => setValues({...value, pass: val})}
+            onChangeText={val => setValues({ ...value, pass: val })}
             secureTextEntry
             autoCapitalize='none'
             style={S.input}
@@ -36,12 +70,16 @@ const SignInScreen = props => {
         </View>
         <View style={S.formControl}>
           <View style={S.button}>
-            <Button
-              title='Sign up'
-              onPress={() => {
-                submitHandler(value, props)
-              }}
-            />
+            {loading ? (
+              <ActivityIndicator size='small' color='black' />
+            ) : (
+              <Button
+                title='Sign in'
+                onPress={() => {
+                  submitHandler(value, props);
+                }}
+              />
+            )}
           </View>
         </View>
       </View>
