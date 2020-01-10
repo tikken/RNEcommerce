@@ -38,12 +38,6 @@ export const fetchProducts = () => {
       products: loadedProducts,
       userProducts: loadedProducts.filter(prod => prod.ownerId === userId)
     }
-
-    obj.userProducts.forEach((item) => {
-      if(item.ownerId === userId) {
-        console.log(item)
-      }
-    } )
     // console.warn(respData);
     dispatch(obj);
   };
