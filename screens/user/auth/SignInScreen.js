@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import {
   View,
@@ -28,9 +28,13 @@ const SignInScreen = props => {
       }
     } catch (e) {
       setError(e);
-      console.log(e);
     }
   };
+
+  let message;
+  if(error) {
+    message = error.message
+  }
 
   useEffect(
     () => {
@@ -38,7 +42,7 @@ const SignInScreen = props => {
         // Alert.alert("Wrong credits!");
         Alert.alert(
           'Caution!',
-          'Wrong credits',
+          message,
           [
             {text: 'Retry', onPress: () => setIsLoading(false)},
           ]

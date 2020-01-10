@@ -18,11 +18,13 @@ export const signup = (email, password) => {
     );
 
     if (!response.ok) {
-      throw new Error("Failed to reach firebase auth");
+      const errorData = await response.json();
+      const errorMessage = errorData.error.message;
+
+      throw new Error(errorMessage);
     }
 
     const resData = await response.json();
-    console.log(resData);
     dispatch({ type: SIGNUP });
   };
 };
@@ -44,7 +46,10 @@ export const signin = (email, password) => {
     );
 
     if (!response.ok) {
-      throw new Error("Failed to reach firebase auth");
+      const errorData = await response.json();
+      const errorMessage = errorData.error.message;
+
+      throw new Error(errorMessage);
     }
 
     const resData = await response.json();

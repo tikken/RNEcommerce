@@ -29,6 +29,10 @@ const SignUpScreen = props => {
     }
   };
 
+  let message;
+  if(error) {
+    message = error.message
+  }
 
   useEffect(
     () => {
@@ -36,7 +40,7 @@ const SignUpScreen = props => {
         // Alert.alert("Wrong credits!");
         Alert.alert(
           'Caution!',
-          'Already exists!',
+          message,
           [
             {text: 'Retry', onPress: () => setIsLoading(false)},
           ]
@@ -45,6 +49,7 @@ const SignUpScreen = props => {
     },
     [error]
   );
+
   return (
     <View style={S.centered}>
       <View style={S.form}>
