@@ -11,22 +11,6 @@ const UserProductScreen = props => {
     
     const uid = useSelector(state => state.auth.userId);
     const dispatch = useDispatch();
-    
-    let a = userProducts.length
-    let b = allProducts.length
-
-    // userProducts.forEach((item) => {
-    //     console.log(item.ownerId)
-    // })
-
-    // allProducts.forEach((item) => {
-    //     console.warn(item.ownerId)
-    // })
-
-    console.log(a,b, uid);
-
-    // console.warn(uid);
-    // console.warn(a, b);
 
     return (
         <View
