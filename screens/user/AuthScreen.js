@@ -8,12 +8,12 @@ import {
   Button,
   TextInput
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import Gradient from '../../components/ui/Gradient';
 
 const AuthScreen = props => {
   return (
     <View style={S.centered}>
-      <LinearGradient style={S.gradient} colors={["#ffedff", "#ffe3ff"]}>
+      <Gradient>
         <View style={S.centered}>
           <Text
             style={S.font}
@@ -28,7 +28,7 @@ const AuthScreen = props => {
             Sign up
           </Text>
         </View>
-      </LinearGradient>
+      </Gradient>
     </View>
   );
 };
@@ -36,10 +36,6 @@ const AuthScreen = props => {
 const S = StyleSheet.create({
   font: {
     fontFamily: "louis"
-  },
-  gradient: {
-    width: "100%",
-    height: "100%"
   },
   centered: {
     flex: 1,

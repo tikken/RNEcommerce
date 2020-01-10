@@ -38,8 +38,10 @@ export const fetchProducts = () => {
 };
 
 export const deleteProduct = id => {
-  return async dispatch => {
-    await fetch(`${FIREBASE_PATCH}/${id}.json`, {
+  return async (dispatch, getState) => {
+    let token = getState().auth.token;
+
+    await fetch(`${FIREBASE_PATCH}/${id}.json?auth=${token}`, {
       method: "DELETE"
     });
 
@@ -79,9 +81,11 @@ export const createProduct = (title, description, imageUrl, price) => {
 };
 
 export const updateProduct = (id, title, description, imageUrl, price) => {
-  return async dispatch => {
-    //logic before execution
-    await fetch(`${FIREBASE_PATCH}/${id}.json`, {
+                          //получает текущий стэйт
+  return async (dispatch, getState) => {
+    let token = getState().auth.token;
+    
+    await fetch(`${FIREBASE_PATCH}/${id}.json?auth=${token}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"

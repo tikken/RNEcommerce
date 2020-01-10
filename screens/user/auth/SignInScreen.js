@@ -10,6 +10,8 @@ import {
   Alert
 } from "react-native";
 import { signin } from "../../../store/actions/auth";
+import { LinearGradient } from "expo-linear-gradient";
+import Gradient from "../../../components/ui/Gradient";
 
 const SignInScreen = props => {
   const [value, setValues] = useState({});
@@ -23,8 +25,8 @@ const SignInScreen = props => {
       setError(null);
       await dispatch(signin(form.login, form.pass));
       setIsLoading(false);
-      if(!loading) {
-        props.navigation.navigate('Shop')
+      if (!loading) {
+        props.navigation.navigate("Shop");
       }
     } catch (e) {
       setError(e);
@@ -32,62 +34,57 @@ const SignInScreen = props => {
   };
 
   let message;
-  if(error) {
-    message = error.message
+  if (error) {
+    message = error.message;
   }
 
-  useEffect(
-    () => {
-      if (error) {
-        // Alert.alert("Wrong credits!");
-        Alert.alert(
-          'Caution!',
-          message,
-          [
-            {text: 'Retry', onPress: () => setIsLoading(false)},
-          ]
-        );
-      }
-    },
-    [error]
-  );
+  useEffect(() => {
+    if (error) {
+      // Alert.alert("Wrong credits!");
+      Alert.alert("Caution!", message, [
+        { text: "Retry", onPress: () => setIsLoading(false) }
+      ]);
+    }
+  }, [error]);
 
   return (
-    <View style={S.centered}>
-      <View style={S.form}>
-        <View style={S.formControl}>
-          <Text style={S.label}>Login:</Text>
-          <TextInput
-            onChangeText={val => setValues({ ...value, login: val })}
-            autoCapitalize='none'
-            style={S.input}
-          />
-        </View>
-        <View style={S.formControl}>
-          <Text style={S.label}>Pass:</Text>
-          <TextInput
-            onChangeText={val => setValues({ ...value, pass: val })}
-            secureTextEntry
-            autoCapitalize='none'
-            style={S.input}
-          />
-        </View>
-        <View style={S.formControl}>
-          <View style={S.button}>
-            {loading ? (
-              <ActivityIndicator size='small' color='black' />
-            ) : (
-              <Button
-                title='Sign in'
-                onPress={() => {
-                  submitHandler(value, props);
-                }}
-              />
-            )}
+    <Gradient>
+      <View style={S.centered}>
+        <View style={S.form}>
+          <View style={S.formControl}>
+            <Text style={S.label}>Login:</Text>
+            <TextInput
+              onChangeText={val => setValues({ ...value, login: val })}
+              autoCapitalize='none'
+              style={S.input}
+            />
+          </View>
+          <View style={S.formControl}>
+            <Text style={S.label}>Pass:</Text>
+            <TextInput
+              onChangeText={val => setValues({ ...value, pass: val })}
+              secureTextEntry
+              autoCapitalize='none'
+              style={S.input}
+            />
+          </View>
+          <View style={S.formControl}>
+            <View style={S.button}>
+              {loading ? (
+                <ActivityIndicator size='small' color='black' />
+              ) : (
+                <Button
+                  title='Sign in'
+                  onPress={() => {
+                    submitHandler(value, props);
+                  }}
+                />
+              )}
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </Gradient>
   );
 };
 

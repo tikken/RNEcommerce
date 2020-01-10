@@ -5,14 +5,14 @@ const initialState = {
     userId: null
 };
 
-export default (state, action) => {
+export default (state = initialState, action) => {
     switch(action.type) {
-        case: SIGNUP
+        case SIGNUP:
             return {
                 token: action.token,
                 userId: action.userId
             }
-        case: SIGNIN
+        case SIGNIN:
             return {
                 token: action.token,
                 userId: action.userId
