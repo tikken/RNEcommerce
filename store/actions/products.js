@@ -9,8 +9,9 @@ const FIREBASE = "https://trattattoo.firebaseio.com/products.json";
 const FIREBASE_PATCH = "https://trattattoo.firebaseio.com/products";
 
 export const fetchProducts = () => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     //any middleware logic goes here
+    const userId = getState().auth.userId;
     const response = await fetch(FIREBASE);
 
     if (!response.ok) {
@@ -19,12 +20,13 @@ export const fetchProducts = () => {
 
     const respData = await response.json();
     const loadedProducts = [];
+    console.warn(loadedProducts);
 
     for (const key in respData) {
       loadedProducts.push(
         new Product(
           key,
-          "u1",
+          respData[key].ownerId,
           respData[key].title,
           respData[key].imageUrl,
           respData[key].description,
@@ -32,8 +34,19 @@ export const fetchProducts = () => {
         )
       );
     }
-    // console.log(respData);
-    dispatch({ type: SET_PRODUCTS, products: loadedProducts });
+    const obj = {
+      type: SET_PRODUCTS,
+      products: loadedProducts,
+      userProducts: loadedProducts.filter(prod => prod.ownerId === userId)
+    }
+
+    obj.userProducts.forEach((item) => {
+      if(item.ownerId === userId) {
+        console.log(item)
+      }
+    } )
+    // console.warn(respData);
+    dispatch(obj);
   };
 };
 
@@ -51,9 +64,13 @@ export const deleteProduct = id => {
 
 export const createProduct = (title, description, imageUrl, price) => {
   //thunk will execute dispatch func after fetch func
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    let token = getState().auth.token;
+    let userId = getState().auth.userId;
+
+    console.warn('createProduct action creator', userId);
     //any middleware logic goes here
-    const response = await fetch(FIREBASE, {
+    const response = await fetch(`${FIREBASE_PATCH}.json?auth=${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -62,7 +79,8 @@ export const createProduct = (title, description, imageUrl, price) => {
         title,
         description,
         imageUrl,
-        price
+        price,
+        ownerId: userId
       })
     });
     const respData = await response.json();
@@ -74,17 +92,18 @@ export const createProduct = (title, description, imageUrl, price) => {
         title: title,
         description: description,
         imageUrl: imageUrl,
-        price: price
+        price: price,
+        ownerId: userId
       }
     });
   };
 };
 
 export const updateProduct = (id, title, description, imageUrl, price) => {
-                          //получает текущий стэйт
+  //получает текущий стэйт
   return async (dispatch, getState) => {
     let token = getState().auth.token;
-    
+
     await fetch(`${FIREBASE_PATCH}/${id}.json?auth=${token}`, {
       method: "PATCH",
       headers: {

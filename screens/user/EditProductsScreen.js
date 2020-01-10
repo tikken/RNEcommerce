@@ -17,6 +17,7 @@ const EditProductScreen = props => {
   const selected = useSelector(state =>
     state.products.userProducts.find(prod => prod.id === pid)
   );
+  const id = useSelector(state => console.log('edit screen', state.auth.userId));
 
   const [title, setTitle] = useState(selected ? selected.title : "");
   const [imageUrl, setImageUrl] = useState(selected ? selected.imageUrl : "");
@@ -76,7 +77,7 @@ const EditProductScreen = props => {
                   );
                   props.navigation.navigate("AdminProducts");
                 } else {
-                  dispatch(createProduct(title, description, imageUrl, +price));
+                  dispatch(createProduct(title, description, imageUrl, +price, id));
                   props.navigation.navigate("AdminProducts");
                 }
               }}
