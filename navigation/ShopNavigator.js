@@ -1,8 +1,12 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, Button } from "react-native";
 import colors from "../constants/colors";
 
-import { createAppContainer, NavigationActions, createSwitchNavigator } from "react-navigation";
+import {
+  createAppContainer,
+  NavigationActions,
+  createSwitchNavigator
+} from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -18,8 +22,8 @@ import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import EditProductScreen from "../screens/user/EditProductsScreen";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import AuthScreen from "../screens/user/AuthScreen";
-import SignInScreen  from "../screens/user/auth/SignInScreen";
-import SignUpScreen  from "../screens/user/auth/SignUpScreen";
+import SignInScreen from "../screens/user/auth/SignInScreen";
+import SignUpScreen from "../screens/user/auth/SignUpScreen";
 import StartUpScreen from "../screens/StartupScreen";
 
 //обьединяет внутренние рауты и сайдбар
@@ -145,11 +149,11 @@ const WholeShopNavigator = createStackNavigator({
 });
 
 const MainNavigator = createSwitchNavigator({
-    Splash: StartUpScreen,
-    Auth:AuthScreen,
-    SignIn: SignInScreen,
-    SignUp: SignUpScreen,
-    Shop: WholeShopNavigator
+  Splash: StartUpScreen,
+  Auth: AuthScreen,
+  SignIn: SignInScreen,
+  SignUp: SignUpScreen,
+  Shop: WholeShopNavigator
 });
 
 export default createAppContainer(MainNavigator);

@@ -1,9 +1,15 @@
 import { AsyncStorage } from "react-native";
 
 export const AUTH = "AUTH";
+export const LOGOUT = "LOGOUT";
 
 export const authenticate = (userId, token) => {
   return { type: AUTH, userId: userId, token: token };
+};
+
+export const logout = () => {
+  // console.warn('logout action');
+  return { type: LOGOUT };
 };
 
 export const signup = (email, password) => {

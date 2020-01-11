@@ -1,5 +1,5 @@
 import { NavigationActions } from "react-navigation";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
 import React, { Component } from "react";
 
 const styles = StyleSheet.create({
@@ -29,12 +29,7 @@ class SideMenu extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <Text
-              style={styles.sectionHeadingStyle}
-              onPress={() => console.log("pressed")}
-            >
-              Mortal
-            </Text>
+            <Text style={styles.sectionHeadingStyle}>Mortal</Text>
             <View style={styles.navSectionStyle}>
               <Text
                 style={styles.navItemStyle}
@@ -68,9 +63,7 @@ class SideMenu extends Component {
             </View>
           </View>
         </ScrollView>
-        <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
-        </View>
+        <View style={styles.footerContainer}></View>
       </View>
     );
   }

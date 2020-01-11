@@ -60,8 +60,7 @@ export const createProduct = (title, description, imageUrl, price) => {
   return async (dispatch, getState) => {
     let token = getState().auth.token;
     let userId = getState().auth.userId;
-
-    console.warn('createProduct action creator', userId);
+    // console.warn('createProduct action creator', userId);
     //any middleware logic goes here
     const response = await fetch(`${FIREBASE_PATCH}.json?auth=${token}`, {
       method: "POST",
