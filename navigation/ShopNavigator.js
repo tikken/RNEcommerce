@@ -18,8 +18,10 @@ import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import EditProductScreen from "../screens/user/EditProductsScreen";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import AuthScreen from "../screens/user/AuthScreen";
-import SignInScreen  from "../screens/user/auth/SignInScreen"
-import SignUpScreen  from "../screens/user/auth/SignUpScreen"
+import SignInScreen  from "../screens/user/auth/SignInScreen";
+import SignUpScreen  from "../screens/user/auth/SignUpScreen";
+import StartUpScreen from "../screens/StartupScreen";
+
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator(
   {
@@ -143,6 +145,7 @@ const WholeShopNavigator = createStackNavigator({
 });
 
 const MainNavigator = createSwitchNavigator({
+    Splash: StartUpScreen,
     Auth:AuthScreen,
     SignIn: SignInScreen,
     SignUp: SignUpScreen,

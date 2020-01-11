@@ -9,6 +9,7 @@ import {
   TextInput
 } from "react-native";
 import Gradient from '../../components/ui/Gradient';
+import { AsyncStorage } from 'react-native';
 
 const AuthScreen = props => {
   return (

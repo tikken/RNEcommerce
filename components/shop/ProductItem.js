@@ -54,6 +54,7 @@ const S = StyleSheet.create({
     left: 20
   },
   touchable: {
+    flex: 1,
     overflow: "hidden",
     width: "100%"
   },
@@ -87,7 +88,7 @@ const S = StyleSheet.create({
   },
   image: {
     height: "65%",
-    width: "50%",
+    width: "100%",
     position: "absolute",
     top: -10
   }
