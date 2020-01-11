@@ -15,7 +15,7 @@ import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/orders";
 import authReducer from "./store/reducers/auth";
 //routes
-import ShopNavigator from "./navigation/ShopNavigator";
+import NavigatorContainer from "./navigation/NavigationContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
 //assets
 async function fetchFonts() {
@@ -52,7 +52,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <StatusBar barStyle='dark-content' />
-      <ShopNavigator />
+      <NavigatorContainer />
     </Provider>
   );
 }
