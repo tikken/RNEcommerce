@@ -25,7 +25,7 @@ import AuthScreen from "../screens/user/AuthScreen";
 import SignInScreen from "../screens/user/auth/SignInScreen";
 import SignUpScreen from "../screens/user/auth/SignUpScreen";
 import StartUpScreen from "../screens/StartupScreen";
-
+import UserPhotosScreen from "../screens/user/UserPhotosScreen";
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator(
   {
@@ -93,6 +93,19 @@ const ShopNavigator = createDrawerNavigator(
           />
         )
       })
+    },
+    Photos: {
+      screen: UserPhotosScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Products",
+        drawerIcon: drawerConfig => (
+          <Ionicons
+            color={drawerConfig.tintColor}
+            size={23}
+            name={Platform.OS === "android" ? "md-albums" : "ios-albums"}
+          />
+        )
+      })
     }
   },
   {
@@ -130,6 +143,14 @@ ShopNavigator.navigationOptions = navData => {
     ),
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          color='black'
+          onPress={() => {
+            navData.navigation.navigate("Photos");
+          }}
+          iconName={Platform.OS === "android" ? "md-add" : "ios-add"}
+          title='Photo'
+        />
         <Item
           color='black'
           onPress={() => {

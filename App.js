@@ -4,8 +4,6 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 //redux
 import { createStore, combineReducers, applyMiddleware } from "redux";
-//saga
-import createSagaMiddleware from 'redux-saga'
 
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
@@ -17,12 +15,19 @@ import authReducer from "./store/reducers/auth";
 //routes
 import NavigatorContainer from "./navigation/NavigationContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
+//saga
+import rootSagas from './store/rootSagas'
+import createSagaMiddleware from 'redux-saga'
+
 //assets
 async function fetchFonts() {
   await Font.loadAsync({
     louis: require("./assets/fonts/louis.ttf")
   });
 }
+//saga
+const sagaMiddleware = createSagaMiddleware()
+
 //redux settings
 const rootReducer = combineReducers({
   products: productReducer,
@@ -33,8 +38,9 @@ const rootReducer = combineReducers({
 const store = createStore(
   rootReducer,
   composeWithDevTools(),
-  applyMiddleware(ReduxThunk)
+  applyMiddleware(ReduxThunk,sagaMiddleware)
 );
+sagaMiddleware.run(rootSagas)
 //main component
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
