@@ -4,7 +4,6 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 //redux
 import { createStore, combineReducers, applyMiddleware } from "redux";
-
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 //reducers
@@ -16,6 +15,9 @@ import photosReducer from "./store/reducers/photos";
 //routes
 import NavigatorContainer from "./navigation/NavigationContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
+//sagas
+import rootSaga from "./store/sagas/sagas";
+import createSagaMiddleware from "redux-saga";
 
 //assets
 async function fetchFonts() {
@@ -31,12 +33,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
   photos: photosReducer
 });
-
+const sagaMiddleware = createSagaMiddleware();
+const middleWares = [ReduxThunk, sagaMiddleware]
 const store = createStore(
   rootReducer,
-  composeWithDevTools(),
-  applyMiddleware(ReduxThunk)
+  composeWithDevTools(applyMiddleware(...middleWares))
 );
+sagaMiddleware.run(rootSaga)
 //main component
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

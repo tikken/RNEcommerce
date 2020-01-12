@@ -97,7 +97,7 @@ const ShopNavigator = createDrawerNavigator(
     Photos: {
       screen: UserPhotosScreen,
       navigationOptions: ({ navigation }) => ({
-        title: "Products",
+        title: "Photos",
         drawerIcon: drawerConfig => (
           <Ionicons
             color={drawerConfig.tintColor}
@@ -148,7 +148,7 @@ ShopNavigator.navigationOptions = navData => {
           onPress={() => {
             navData.navigation.navigate("Photos");
           }}
-          iconName={Platform.OS === "android" ? "md-add" : "ios-add"}
+          iconName={Platform.OS === "android" ? "md-camera" : "ios-camera"}
           title='Photo'
         />
         <Item

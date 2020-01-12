@@ -1,4 +1,7 @@
 export const CREATE_PHOTO = "CREATE_PHOTO";
+export const FETCH_PHOTO = "FETCH_PHOTO";
+export const INCREMENT_ASYNC = "INCREMENT_ASYNC";
+
 const FIREBASE = "https://trattattoo.firebaseio.com/photos";
 
 export const createPhoto = (uri, id) => {
@@ -27,4 +30,9 @@ export const createPhoto = (uri, id) => {
       });
     };
   };
-  
+
+export const fetchPhotos = () => {
+  return { type: INCREMENT_ASYNC }
+  // console.log('fetch photos action created');
+  // return { type: FETCH_PHOTO, photos: photos };
+};

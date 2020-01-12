@@ -1,4 +1,4 @@
-import { CREATE_PHOTO } from "../actions/photos";
+import { CREATE_PHOTO, FETCH_PHOTO } from "../actions/photos";
 
 const initialState = {
     userPhotos: []
@@ -10,6 +10,11 @@ export default (state = initialState, action) => {
             return {
                userPhotos: action.photos
             }
+        case FETCH_PHOTO: 
+            console.log('reducer', state, action);
+            return {
+                userPhotos: action.uid
+            }    
     }
     return state;
 };
