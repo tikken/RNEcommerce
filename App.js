@@ -15,9 +15,6 @@ import authReducer from "./store/reducers/auth";
 //routes
 import NavigatorContainer from "./navigation/NavigationContainer";
 import { composeWithDevTools } from "redux-devtools-extension";
-//saga
-import rootSagas from './store/rootSagas'
-import createSagaMiddleware from 'redux-saga'
 
 //assets
 async function fetchFonts() {
@@ -25,9 +22,6 @@ async function fetchFonts() {
     louis: require("./assets/fonts/louis.ttf")
   });
 }
-//saga
-const sagaMiddleware = createSagaMiddleware()
-
 //redux settings
 const rootReducer = combineReducers({
   products: productReducer,
@@ -35,12 +29,12 @@ const rootReducer = combineReducers({
   orders: ordersReducer,
   auth: authReducer
 });
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(),
-  applyMiddleware(ReduxThunk,sagaMiddleware)
+  applyMiddleware(ReduxThunk)
 );
-sagaMiddleware.run(rootSagas)
 //main component
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

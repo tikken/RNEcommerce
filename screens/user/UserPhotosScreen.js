@@ -3,7 +3,6 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { useDispatch } from "react-redux";
 import { Text, View, StyleSheet, Image, Button, Alert } from "react-native";
-import { save } from "../../store/actions/photos";
 
 async function askFormPermissions() {
   const { status } = await Permissions.askAsync(
@@ -34,13 +33,13 @@ const UserPhotosScreen = props => {
       });
       
       setImage(img.uri);
-      dispatch(save(image));
   };
 
   const [image, setImage] = useState(null);
 
   return (
     <View style={S.wrapper}>
+      <Button title="Fetch"  onPress={() => dispatch(savePhoto.trigger({}))}/>
       <Button title='+' onPress={takePhoto} />
       {image && <Image source={{ uri: image }} style={S.image} />}
     </View>
