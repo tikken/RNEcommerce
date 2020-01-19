@@ -45,7 +45,7 @@ export const fetchPlaces = () => {
         `SELECT * FROM places`,
         [],
         (_, result) => {
-          console.log("insert results", result);
+          console.log("fetching results", result);
           res(result);
         },
         (_, err) => {
@@ -54,4 +54,7 @@ export const fetchPlaces = () => {
       );
     });
   });
+
+  return promise
+
 };

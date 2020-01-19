@@ -1,4 +1,4 @@
-import { CREATE_PHOTO, FETCH_PHOTO } from "../actions/photos";
+import { CREATE_PHOTO, FETCH_PHOTO, ADD_PLACE, SAVE_PLACE } from "../actions/photos";
 
 const initialState = {
     userPhotos: [],
@@ -7,6 +7,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SAVE_PLACE: 
+            return {
+                places: action.places
+            }
         case CREATE_PHOTO: 
             return {
                userPhotos: action.photos

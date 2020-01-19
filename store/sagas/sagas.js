@@ -1,4 +1,6 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery, all, fork, call } from "redux-saga/effects";
+import { fetchPlaces } from "../../helpers/db";
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 //basic function
@@ -6,15 +8,16 @@ export function* helloSaga() {
   console.log("Hello Sagas!");
 }
 //increment
-export function* incrementAsync() {
-  console.log("start");
-  yield delay(1000);
-  console.log("done");
+export function* onSavePlace() {
+  console.log("saga start");
+  const res = yield fork(fetchPlaces)
+  yield delay(5000)
+
 }
 
 export function* watchIncrementAsync() {
-  console.log('saga')  
-  yield takeEvery("INCREMENT_ASYNC", incrementAsync);
+  console.log('saga init');  
+  yield takeEvery("SAVE_PLACE", onSavePlace);
 }
 
 export default function* rootSaga() {
