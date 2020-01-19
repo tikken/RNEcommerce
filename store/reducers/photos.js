@@ -1,7 +1,8 @@
 import { CREATE_PHOTO, FETCH_PHOTO } from "../actions/photos";
 
 const initialState = {
-    userPhotos: []
+    userPhotos: [],
+    places: []
 };
 
 export default (state = initialState, action) => {

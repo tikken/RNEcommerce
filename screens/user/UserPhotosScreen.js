@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,33 +22,35 @@ const UserPhotosScreen = props => {
   const dispatch = useDispatch();
   const uid = useSelector(state => state.auth.userId);
 
-  console.log(uid)
+  useEffect(() => {
+    dispatch(fetchPhotos());
+  }, [dispatch]);
 
   const fetch = () => {
-      dispatch(fetchPhotos(uid));
+    dispatch(fetchPhotos(uid));
   };
 
   const takePhoto = async () => {
     const hasPermissions = await askFormPermissions();
     if (!hasPermissions) {
-        return;
-      }
-      //камера
-      const img = await ImagePicker.launchCameraAsync({
-        quality: 1,
-        allowsEditing: true,
-        aspect: [16, 9]
-      });
-      
-      setImage(img.uri);
-      dispatch(createPhoto(img.uri, uid));
+      return;
+    }
+    //камера
+    const img = await ImagePicker.launchCameraAsync({
+      quality: 1,
+      allowsEditing: true,
+      aspect: [16, 9]
+    });
+
+    setImage(img.uri);
+    dispatch(createPhoto(img.uri, uid));
   };
 
   const [image, setImage] = useState(null);
 
   return (
     <View style={S.wrapper}>
-      <Button title="fetch" onPress={fetch}/>
+      <Button title='fetch' onPress={fetch} />
       <Button title='+' onPress={takePhoto} />
       {image && <Image source={{ uri: image }} style={S.image} />}
     </View>
