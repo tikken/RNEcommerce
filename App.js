@@ -18,6 +18,16 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //sagas
 import rootSaga from "./store/sagas/sagas";
 import createSagaMiddleware from "redux-saga";
+import { init } from "./helpers/db";
+
+//database initiation
+init()
+  .then(() => {
+    console.log("db success");
+  })
+  .catch(err => {
+    console.log("db failed");
+  });
 
 //assets
 async function fetchFonts() {
@@ -34,12 +44,12 @@ const rootReducer = combineReducers({
   photos: photosReducer
 });
 const sagaMiddleware = createSagaMiddleware();
-const middleWares = [ReduxThunk, sagaMiddleware]
+const middleWares = [ReduxThunk, sagaMiddleware];
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(...middleWares))
 );
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 //main component
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
