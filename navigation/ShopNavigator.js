@@ -26,6 +26,7 @@ import SignInScreen from "../screens/user/auth/SignInScreen";
 import SignUpScreen from "../screens/user/auth/SignUpScreen";
 import StartUpScreen from "../screens/StartupScreen";
 import UserPhotosScreen from "../screens/user/UserPhotosScreen";
+import MapScreen from "../screens/user/MapScreen";
 //обьединяет внутренние рауты и сайдбар
 const ShopNavigator = createDrawerNavigator(
   {
@@ -96,6 +97,19 @@ const ShopNavigator = createDrawerNavigator(
     },
     Photos: {
       screen: UserPhotosScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Photos",
+        drawerIcon: drawerConfig => (
+          <Ionicons
+            color={drawerConfig.tintColor}
+            size={23}
+            name={Platform.OS === "android" ? "md-albums" : "ios-albums"}
+          />
+        )
+      })
+    },
+    Map: {
+      screen: MapScreen,
       navigationOptions: ({ navigation }) => ({
         title: "Photos",
         drawerIcon: drawerConfig => (

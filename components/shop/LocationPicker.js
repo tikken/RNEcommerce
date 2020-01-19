@@ -69,7 +69,8 @@ const LocationPicker = props => {
 
 const S = StyleSheet.create({
   locationPicker: {
-    marginBottom: 15
+    marginBottom: 15,
+    width: '100%'
   },
   mapPreview: {
     marginBottom: 15,

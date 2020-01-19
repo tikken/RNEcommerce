@@ -21,9 +21,6 @@ async function askFormPermissions() {
 
 const UserPhotosScreen = props => {
   const userPlaces = useSelector(state => state);
-
-  // console.warn('store places', userPlaces);
-
   const dispatch = useDispatch();
   const uid = useSelector(state => state.auth.userId);
   //when screen loads we are fetching items from db
@@ -51,7 +48,6 @@ const UserPhotosScreen = props => {
 
   return (
     <View style={S.wrapper}>
-      <LocationPicker />
       <Button title='+' onPress={takePhoto} />
       {image && <Image source={{ uri: image }} style={S.image} />}
     </View>

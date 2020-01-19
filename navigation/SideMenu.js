@@ -49,6 +49,12 @@ class SideMenu extends Component {
               >
                 Orders
               </Text>
+              <Text
+                style={styles.navItemStyle}
+                onPress={this.navigateToScreen("Map")}
+              >
+                Map
+              </Text>
             </View>
           </View>
           <View>
