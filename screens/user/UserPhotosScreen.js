@@ -4,7 +4,6 @@ import * as Permissions from "expo-permissions";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, View, StyleSheet, Image, Button, Alert } from "react-native";
 import { createPhoto, fetchPhotos } from "../../store/actions/photos";
-import LocationPicker from "../../components/shop/LocationPicker";
 
 async function askFormPermissions() {
   const { status } = await Permissions.askAsync(

@@ -1,23 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import * as Permissions from "expo-permissions";
-import LocationPicker from "../../components/shop/LocationPicker";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
+import MapView from "react-native-maps";
 
 const MapScreen = props => {
+  const mapRegion = {
+    latitude: 59.56,
+    longitude: 30.18,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421
+  };
+  const selectLocation = event => {
+      console.log(event)
+  };
   return (
-    <View style={S.wrap}>
-        <LocationPicker />
+    <View style={styles.container}>
+      <MapView 
+        style={styles.mapStyle} 
+        region={mapRegion}
+        onPress={selectLocation}
+      >
+        <MapView.Marker
+          coordinate={mapRegion}
+          title='Title'
+          description='Description'
+        />
+      </MapView>
     </View>
   );
 };
 
-const S = StyleSheet.create({
-    wrap: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%'
-    }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
+  }
 });
 
 export default MapScreen;
